@@ -9,7 +9,7 @@ export default class PastMeetings extends Component
     loadMeeting(pastMeetingList)
     {
         return(
-        <PastMeetingsPlay pastMeetingList={pastMeetingList} />
+            <h1>{pastMeetingList.code}</h1>
         )
     }
 
