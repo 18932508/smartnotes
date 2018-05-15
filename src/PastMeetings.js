@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import meetingIcon from "./meetingIcon.png";
-import PastMeetingsPlay from "./PastMeetingsPlay"
+import PastMeetingsPlay from "./PastMeetingsPlay";
+
+import { Router, Route, IndexRoute, hashHistory} from "react-router";
 
 export default class PastMeetings extends Component
 {
@@ -9,7 +11,8 @@ export default class PastMeetings extends Component
     loadMeeting(pastMeetingList)
     {
         return(
-            <h1>{pastMeetingList.code}</h1>
+            console.log(pastMeetingList.code),
+            <Route path="pastMeetingPlay" component = {PastMeetingsPlay} />
         )
     }
 

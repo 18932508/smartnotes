@@ -5,21 +5,6 @@ import './App.css';
 
 import MainMenu from'./MainMenu';
 
-
-
-class UserName extends Component
-{
-  render()
-  {
-    return(
-      <div>
-        <img src={userIcon} className="User-icon" />
-        <input type='text' default="username"></input>
-      </div>
-    );
-  }
-}
-
 class LoggedIn extends Component
 {
   render()
