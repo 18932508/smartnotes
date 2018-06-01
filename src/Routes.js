@@ -8,17 +8,86 @@ import PastMeetings from "./PastMeetings";
 import PastMeetingsPlay from "./PastMeetingsPlay";
 import Login from "./Login";
 
+let fakeServerData = {
+    user:{
+      name: "Calvin",
+      upcomingMeetings:
+      [
+        {code :"1234",
+        date:"5/6/2018",
+        place:"TLC-212",
+        time:"2:00",
+        type:"Investor update"},
+        {code :"1235",
+        date:"12/6/2018",
+        place:"TLC-414",
+        time:"10:00",
+        type:"Update Meeting"},
+        {code :"1236",
+        date:"27/7/2018",
+        place:"BG-Common",
+        time:"11:00",
+        type:"Stratergy Meeting"}
+      ],
+      pastMeetings:
+      [      
+      {code :"1231",
+      date:"30/5/2018",
+      place:"PS2-212",
+      time:"1:30",
+      type:"Update Meeting",
+      audio: "./PM1.mp3",
+      notes:[
+        {timecode: "1:00",
+         description: "Note 1"},
+        {timecode: "2:00",
+        description: "Note 2"},
+      ]
+    },
+      {code :"1232",
+      date:"25/5/2018",
+      place:"BG-115",
+      time:"11:00",
+      type:"Update Meeting",
+      notes:[
+        {timecode: "1:00",
+         description: "Note 1"},
+        {timecode: "2:00",
+        description: "Note 2"},
+      ]}]
+    }
+  }
+
+
 export default class AppRoutes extends Component{
+    constructor(){
+        super()
+        this.state={
+          serverData: {}
+        }
+      }
+      componentDidMount()
+    {
+      setTimeout(() =>{
+        this.setState({serverData: fakeServerData});
+      },1000);
+    }
     render()
     {
+        let serverData = this.state.serverData
+        console.log(serverData)
         return(
             <div className="App">
+            {this.state.serverData.user ?
+             
+            <div>
             <Router history = {browserHistory}>
-                <Route exact path="/" component={MainMenu}/>
+                <Route exact path="/" component={() => <MainMenu  serverData={this.state.serverData}/>}/>
                 <Route exact path="/login"   component = {Login} />
-                <Route exact path="/pastMeetingsPlay/:code"   component = {PastMeetingsPlay} />
-                
+                <Route exact path="/pastMeetingsPlay/:meetingCode"   component={(props) => <PastMeetingsPlay  serverData={serverData} {...props}/>} />
             </Router>
+            </div>:<h1>Loading...</h1>
+            }
             </div>
         )
     }
