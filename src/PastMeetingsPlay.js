@@ -7,12 +7,11 @@ import WaveTest from './WaveTest';
 
 export default class PastMeetingPlay extends Component
 {
+
     render()
     {
         let meetingCode = this.props.params.meetingCode
         let serverData=this.props.serverData.user.pastMeetings
-        console.log(meetingCode)
-        console.log(serverData)
 
         var i = serverData.length, pastMeeting;
         while(i--)
@@ -27,8 +26,7 @@ export default class PastMeetingPlay extends Component
             <div>
             <NavbarMenu />
             <h1>{pastMeeting.code} - {pastMeeting.date}</h1>
-            <WaveTest song={pastMeeting.audio.audiothing} />
-            <Notes notes={pastMeeting.notes}/>
+            <WaveTest song={pastMeeting.audio.audiothing} notes={pastMeeting.notes} />
             </div>
         )
     }

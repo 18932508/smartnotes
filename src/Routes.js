@@ -40,8 +40,10 @@ let fakeServerData = {
       audio: {audiothing},
       notes:[
         {timecode: "1:00",
+         time: 60,
          description: "Note 1"},
         {timecode: "2:00",
+        time: 120,
         description: "Note 2"},
       ]
     },
