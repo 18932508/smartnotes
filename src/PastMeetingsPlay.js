@@ -3,6 +3,7 @@ import './App.css';
 import meetingIcon from "./meetingIcon.png";
 import NavbarMenu from './Navbar';
 import Notes from './Notes';
+import WaveTest from './WaveTest';
 
 export default class PastMeetingPlay extends Component
 {
@@ -21,15 +22,12 @@ export default class PastMeetingPlay extends Component
                 break;
             }
         }
-        console.log(pastMeeting)
-        
+        console.log(pastMeeting)        
         return(
             <div>
             <NavbarMenu />
             <h1>{pastMeeting.code} - {pastMeeting.date}</h1>
-            <h1>SOUNDWAVE HERE</h1>
-            <h1>AUDIO HERE</h1>
-            <h1>NOTES HERE</h1>
+            <WaveTest song={pastMeeting.audio.audiothing} />
             <Notes notes={pastMeeting.notes}/>
             </div>
         )

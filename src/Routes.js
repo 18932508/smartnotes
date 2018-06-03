@@ -7,6 +7,7 @@ import UpComingMeetings from "./UpcomingMeetings";
 import PastMeetings from "./PastMeetings";
 import PastMeetingsPlay from "./PastMeetingsPlay";
 import Login from "./Login";
+import audiothing from "./PM1.mp3"
 
 let fakeServerData = {
     user:{
@@ -36,7 +37,7 @@ let fakeServerData = {
       place:"PS2-212",
       time:"1:30",
       type:"Update Meeting",
-      audio: "./PM1.mp3",
+      audio: {audiothing},
       notes:[
         {timecode: "1:00",
          description: "Note 1"},
