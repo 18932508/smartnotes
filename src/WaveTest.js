@@ -1,9 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Wavesurfer from 'react-wavesurfer';
-import audio from "./PM1.mp3"
+import audio from "./PM1.mp3";
 
 require('wavesurfer.js');
+
+class Filter extends React.Component{
+  render()
+  {
+    return(
+      <div style={{color : "black", display: "inline-block", algin : "right"}}>
+        <input type="text" onKeyUp={event => 
+          this.props.onTextChange(event.target.value)}/>
+      </div>
+    );
+  }
+}
 
 export default class Waveform extends React.Component {
   constructor(props) {
@@ -11,9 +23,19 @@ export default class Waveform extends React.Component {
     this.state = {
       playing: false,
       pos: 0,
+      filterString: '',
+      notes : this.props.notes
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
+  }
+
+  getCurrentTime(time)
+  {
+    return [
+      Math.floor((time % 3600)/60),
+        ('00'+ Math.floor(time % 60)).slice(-2)
+    ].join(':');
   }
 
   handleTogglePlay() {
@@ -30,9 +52,18 @@ export default class Waveform extends React.Component {
       const waveOptions = {
         progressColor: 'darkorange',
         waveColor: 'orange',
-        barWidth: 2
+        barWidth: 3
       };
-      let notes = this.props.notes;
+      const timelineOptions = {
+        timeInterval: 0.5,
+        height: 30,
+        primaryFontColor: '#00f',
+        primaryColor: '#00f'
+      };
+
+      let notesToRender = this.state.notes? this.state.notes.filter(notes =>
+        notes.description.toLowerCase().includes(this.state.filterString.toLowerCase())): []
+
     return (
       <div>
         <Wavesurfer
@@ -41,7 +72,10 @@ export default class Waveform extends React.Component {
           onPosChange={event => this.handlePosChange(event.originalArgs[0])}
           playing={this.state.playing}
           options={waveOptions}
-        />
+          
+        >
+        </Wavesurfer>
+        <h4 className="timecodeleft">{this.getCurrentTime(this.state.pos)}</h4>
 
         <button 
         onClick={() => this.handlePosChange(this.state.pos - 5)}>SkipBack</button>
@@ -51,24 +85,13 @@ export default class Waveform extends React.Component {
         <button 
         onClick={() => this.handlePosChange(this.state.pos + 5)}>SkipForward</button>
 
-        <h4>{this.state.pos}</h4>
-        
-        <div className="form-group col-xs-4">
-            <label htmlFor="simple-pos">Position:</label>
-            <input
-              name="simple-pos"
-              type="number"
-              step="0.01"
-              value={this.state.pos}
-              onChange={event => this.handlePosChange(+event.target.value)}
-              className="form-control"
-            />
-        </div>
-
         <div>
             <header className="App-header">Notes 
+
+            <Filter onTextChange={text => this.setState({filterString: text})}/>
+
             </header>
-            {notes.map(notes =>
+            {notesToRender.map(notes =>
             <button className="yay2"
             onClick={() => this.handlePosChange(notes.time)}>
             <h3 >Time : {notes.timecode} - Description : {notes.description}</h3>

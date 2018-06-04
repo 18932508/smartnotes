@@ -41,10 +41,10 @@ let fakeServerData = {
       notes:[
         {timecode: "1:00",
          time: 60,
-         description: "Note 1"},
+         description: "Change template for clients"},
         {timecode: "2:00",
         time: 120,
-        description: "Note 2"},
+        description: "Make sure to call to schedule meeting for clients"},
       ]
     },
       {code :"1232",
