@@ -9,7 +9,7 @@ export default class UpcomingMeetings extends Component
     {
         let upcomingMeetingList = this.props.serverData
     return(
-        <div className="meetingDiv">
+        <div className="meetingDivU">
         <h1 className="UpcomingMeetings">UpcomingMeetings</h1>
         <div>
         {upcomingMeetingList.map(upcomingMeetingList =>         

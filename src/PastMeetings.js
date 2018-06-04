@@ -17,7 +17,7 @@ export default class PastMeetings extends Component
     {
         let pastMeetingList=this.props.serverData
     return(
-        <div className="meetingDiv">
+        <div className="meetingDivP">
         <h1 className="UpcomingMeetings">PastMeetings</h1>
         <div>
         {pastMeetingList.map(pastMeetingList =>         

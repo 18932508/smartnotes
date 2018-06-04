@@ -104,12 +104,22 @@
 {
   vertical-align: middle;
 }
-.meetingDiv
+.meetingDivP
 {
+  position: absolute;
   margin: 50px;
   position: center;
   width: 30%;
-  float: left;
+  right: 200px;
+  text-align: center;
+}
+.meetingDivU
+{
+  position: absolute;
+  margin: 50px;
+  position: center;
+  width: 30%;
+  left: 200px;
   text-align: center;
 }
 .navbar-default {
