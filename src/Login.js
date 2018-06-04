@@ -20,7 +20,7 @@ class LoggedIn extends Component
          <img style={{display:"inline-block"}} src={userIcon} className="User-icon" />
           <Input type='text' name='username' placeholder='username' />
           <Input type='password' name='password' placeholder='password' />
-                <button className="btn"> Sign In</button>
+                <button className="butn"> Sign In</button>
               </form>
            </div>
     )

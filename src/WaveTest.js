@@ -2,6 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Wavesurfer from 'react-wavesurfer';
 import audio from "./PM1.mp3";
+import * as ReactBootstrap from 'react-bootstrap';
+
+import playbutton from "./imgs/playbutton.png";
+import playback from "./imgs/playback.png";
+import playforw from "./imgs/playforw.png";
+import playpause from "./imgs/playpause.png";
 
 require('wavesurfer.js');
 
@@ -9,13 +15,26 @@ class Filter extends React.Component{
   render()
   {
     return(
-      <div style={{color : "black", display: "inline-block", algin : "right"}}>
-        <input type="text" onKeyUp={event => 
+      <div className="filterNotes"style={{color : "black", display: "inline-block"}}>
+        <input placeholder="Filter notes" className="filterNotes" type="text" onKeyUp={event => 
           this.props.onTextChange(event.target.value)}/>
       </div>
     );
   }
 }
+class PlayButton extends React.Component{
+    render()
+    {
+      let isPlaying = this.props.playing
+      if(isPlaying)
+      {
+        return <img style={{height: "45px"}}src={playpause} />
+      }
+      return <img style={{height: "45px"}}src={playbutton} />
+      
+    }
+  }
+
 
 export default class Waveform extends React.Component {
   constructor(props) {
@@ -77,13 +96,13 @@ export default class Waveform extends React.Component {
         </Wavesurfer>
         <h4 className="timecodeleft">{this.getCurrentTime(this.state.pos)}</h4>
 
-        <button 
-        onClick={() => this.handlePosChange(this.state.pos - 5)}>SkipBack</button>
+        <ReactBootstrap.Button bsStyle="link"
+        onClick={() => this.handlePosChange(this.state.pos - 5)}><img style={{height: "45px"}} src={playback} /> </ReactBootstrap.Button>
 
-        <button onClick={this.handleTogglePlay}>PLAY</button>
+        <ReactBootstrap.Button bsStyle="link" onClick={this.handleTogglePlay}><PlayButton playing={this.state.playing}/></ReactBootstrap.Button>
 
-        <button 
-        onClick={() => this.handlePosChange(this.state.pos + 5)}>SkipForward</button>
+        <ReactBootstrap.Button bsStyle="link"
+        onClick={() => this.handlePosChange(this.state.pos + 5)}><img style={{height: "45px"}} src={playforw} /> </ReactBootstrap.Button>
 
         <div>
             <header className="App-header">Notes 
