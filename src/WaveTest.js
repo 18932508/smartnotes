@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import Wavesurfer from 'react-wavesurfer';
 import audio from "./PM1.mp3";
 import * as ReactBootstrap from 'react-bootstrap';
+import './App.css';
+import assign from 'deep-assign';
 
 import playbutton from "./imgs/playbutton.png";
 import playback from "./imgs/playback.png";
 import playforw from "./imgs/playforw.png";
 import playpause from "./imgs/playpause.png";
+import noteIcon from "./imgs/note.png";
 
 require('wavesurfer.js');
 
@@ -43,6 +46,7 @@ export default class Waveform extends React.Component {
       playing: false,
       pos: 0,
       filterString: '',
+      regions:{},
       notes : this.props.notes
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
@@ -66,18 +70,13 @@ export default class Waveform extends React.Component {
     this.setState({
       pos: newPos
     });
-  }  
+  }
+
   render() {
       const waveOptions = {
         progressColor: 'darkorange',
         waveColor: 'orange',
         barWidth: 3
-      };
-      const timelineOptions = {
-        timeInterval: 0.5,
-        height: 30,
-        primaryFontColor: '#00f',
-        primaryColor: '#00f'
       };
 
       let notesToRender = this.state.notes? this.state.notes.filter(notes =>
@@ -85,15 +84,16 @@ export default class Waveform extends React.Component {
 
     return (
       <div>
+
         <Wavesurfer
           audioFile={audio}
           pos={this.state.pos}
           onPosChange={event => this.handlePosChange(event.originalArgs[0])}
           playing={this.state.playing}
           options={waveOptions}
-          
         >
         </Wavesurfer>
+
         <h4 className="timecodeleft">{this.getCurrentTime(this.state.pos)}</h4>
 
         <ReactBootstrap.Button bsStyle="link"
@@ -113,7 +113,7 @@ export default class Waveform extends React.Component {
             {notesToRender.map(notes =>
             <button className="yay2"
             onClick={() => this.handlePosChange(notes.time)}>
-            <h3 >Time : {notes.timecode} - Description : {notes.description}</h3>
+            <h3 > <img className="note-icon" src={noteIcon} /> Time : {notes.timecode} - Description : {notes.description}</h3>
             </button>
             )}
         </div>

@@ -36,7 +36,7 @@ let fakeServerData = {
       date:"30/5/2018",
       place:"PS2-212",
       time:"1:30",
-      type:"Update Meeting",
+      type:"Clients Meeting",
       audio: {audiothing},
       notes:[
         {timecode: "1:00",
@@ -54,15 +54,26 @@ let fakeServerData = {
       date:"25/5/2018",
       place:"BG-115",
       time:"11:00",
-      type:"Update Meeting",
+      type:"Update Meeting",      
+      audio: {audiothing},
       notes:[
-        {timecode: "1:00",
-         description: "Note 1"},
-        {timecode: "2:00",
-        description: "Note 2"},
-      ]}]
-    }
+        {timecode: "1:30",
+         time: 90,
+         description: "Make sure to clarify the notes with James"},
+         {timecode: "1:45",
+         time: 105,
+         description: "Edit email for clients"},
+         {timecode: "3:30",
+         time: 210,
+         description: "Stop making fake notes"},
+      ]
+      }
+    ]
   }
+}
+    
+  
+  
 
 
 export default class AppRoutes extends Component{

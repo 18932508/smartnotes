@@ -3,16 +3,41 @@ import './App.css';
 import meetingIcon from "./meetingIcon.png";
 
 
-export default class UpcomingMeetings extends Component
-{
+
+class Filter extends React.Component{
     render()
     {
-        let upcomingMeetingList = this.props.serverData
+      return(
+        <div className="filterNotesPastMeetings"style={{color : "black", display: "inline-block"}}>
+          <input placeholder="Filter Upcoming Meeting" type="text" onKeyUp={event => 
+            this.props.onTextChange(event.target.value)}/>
+        </div>
+      );
+    }
+  }
+
+export default class UpcomingMeetings extends Component
+{
+    constructor(props) {
+        super(props);
+        this.state = {      
+            filterString: '',
+            upcomingMeetingList : this.props.serverData
+        };
+    }
+    render()
+    {
+        let upcomingMeetingToRender = this.state.upcomingMeetingList? this.state.upcomingMeetingList.filter(upcomingMeetingList =>
+            upcomingMeetingList.type.toLowerCase().includes(this.state.filterString.toLowerCase())): []
     return(
         <div className="meetingDivU">
-        <h1 className="UpcomingMeetings">UpcomingMeetings</h1>
         <div>
-        {upcomingMeetingList.map(upcomingMeetingList =>         
+        <h1 className="UpcomingMeetings">UpcomingMeetings</h1>
+        <Filter  onTextChange={text => this.setState({filterString: text})}/>
+
+        </div>
+        <div>
+        {upcomingMeetingToRender.map(upcomingMeetingList =>         
         <div className="yay">
         <img src ={meetingIcon} alt="meetingIcon" style={{height:"30px", display: "inline-block", textAlign : "left"}} />
         <h3 id="code" style={{display: "inline-block"}} >{upcomingMeetingList.code} </ h3>

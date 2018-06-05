@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "deep-assign": "^2.0.0",
     "history": "^1.17.0",
     "react": "^16.3.2",
     "react-audio-player": "^0.10.0",
