@@ -4,13 +4,14 @@ import Wavesurfer from 'react-wavesurfer';
 import audio from "./PM1.mp3";
 import * as ReactBootstrap from 'react-bootstrap';
 import './App.css';
-import assign from 'deep-assign';
+import Popup from "reactjs-popup";
 
 import playbutton from "./imgs/playbutton.png";
 import playback from "./imgs/playback.png";
 import playforw from "./imgs/playforw.png";
 import playpause from "./imgs/playpause.png";
 import noteIcon from "./imgs/note.png";
+import confirmIcon from "./imgs/confirm.png";
 
 require('wavesurfer.js');
 
@@ -47,10 +48,17 @@ export default class Waveform extends React.Component {
       pos: 0,
       filterString: '',
       regions:{},
-      notes : this.props.notes
+      notes : this.props.notes,
+      value: '',
+      newNote : {timecode:'', time:'', description:''}
     };
     this.handleTogglePlay = this.handleTogglePlay.bind(this);
     this.handlePosChange = this.handlePosChange.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+
   }
 
   getCurrentTime(time)
@@ -72,6 +80,28 @@ export default class Waveform extends React.Component {
     });
   }
 
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+  handleSubmit(event) {
+    console.log('timecode ' + this.getCurrentTime(this.state.pos));
+    console.log('time: '+ this.state.pos);
+    console.log('description : ' +  this.state.value);
+
+    let newNote = Object.assign([], this.state.newNote);
+    
+    let notes = Object.assign([],this.state.notes);
+
+    newNote.timecode = this.getCurrentTime(this.state.pos)
+    newNote.time = this.state.pos
+    newNote.description = this.state.value
+
+    this.setState({newNote});
+    this.setState(this.state.notes[this.state.notes.length] = (newNote));
+    console.log(this.state.notes);
+    event.preventDefault();
+  }
+
   render() {
       const waveOptions = {
         progressColor: 'darkorange',
@@ -81,6 +111,8 @@ export default class Waveform extends React.Component {
 
       let notesToRender = this.state.notes? this.state.notes.filter(notes =>
         notes.description.toLowerCase().includes(this.state.filterString.toLowerCase())): []
+      
+      
 
     return (
       <div>
@@ -108,8 +140,29 @@ export default class Waveform extends React.Component {
             <header className="App-header">Notes 
 
             <Filter onTextChange={text => this.setState({filterString: text})}/>
+            <Popup
+              trigger={<button className="button"> Add Note </button>}
+              modal
+              closeOnDocumentClick
+            >
+              <div className="newNote">
+                <header style={{background: "#F7941D" }}> New Note</header>
+                <form onSubmit={this.handleSubmit}>
+                <label> Time: {this.getCurrentTime(this.state.pos)}
+                </label>
+                <div>
+                <label>
+                  Description:
+                  <input type="text" className="inputBox" value={this.state.value} onChange={this.handleChange} />
+                </label>
+                </div>
+                <input type="submit" value="Submit" />
+              </form>
 
+              </div>
+            </Popup>
             </header>
+
             {notesToRender.map(notes =>
             <button className="yay2"
             onClick={() => this.handlePosChange(notes.time)}>
