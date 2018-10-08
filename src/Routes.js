@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Router, Route, browserHistory} from "react-router";
+import axios from 'axios';
 
 import MainMenu from "./MainMenu";
 import UpComingMeetings from "./UpcomingMeetings";
@@ -9,7 +10,7 @@ import PastMeetingsPlay from "./PastMeetingsPlay";
 import Login from "./Login";
 import audiothing from "./PM1.mp3"
 
-let fakeServerData = {
+/*let fakeServerData = {
     user:{
       name: "Calvin",
       upcomingMeetings:
@@ -70,7 +71,7 @@ let fakeServerData = {
       }
     ]
   }
-}
+}*/
     
   
   
@@ -80,28 +81,32 @@ export default class AppRoutes extends Component{
     constructor(){
         super()
         this.state={
-          serverData: {}
+          userData: []
         }
       }
       componentDidMount()
     {
-      setTimeout(() =>{
-        this.setState({serverData: fakeServerData});
-      },1000);
+      axios.get(`https://smartnote1.azurewebsites.net/api/users/3`)
+      .then(res => {
+      this.setState({
+        userData : res.data
+      });
     }
+  )
+}
     render()
     {
-        let serverData = this.state.serverData
-        console.log(serverData)
+        const userData = this.state;
+        console.log(this.state.userData);
         return(
             <div className="App">
-            {this.state.serverData.user ?
+            {this.state.userData.UserName ?
              
             <div>
             <Router history = {browserHistory}>
-                <Route exact path="/" component={() => <MainMenu  serverData={this.state.serverData}/>}/>
+                <Route exact path="/" component={() => <MainMenu  userData={this.state.userData}/>}/>
                 <Route exact path="/login"   component = {Login} />
-                <Route exact path="/pastMeetingsPlay/:meetingCode"   component={(props) => <PastMeetingsPlay  serverData={serverData} {...props}/>} />
+                <Route exact path="/pastMeetingsPlay/:meetingCode"   component={(props) => <PastMeetingsPlay  user={this.state.userData.UserID} {...props}/>} />
             </Router>
             </div>:<h1>Loading...</h1>
             }

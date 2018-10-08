@@ -24,6 +24,7 @@ export default class PastMeetings extends Component
         this.state = {      
             filterString: '',
             pastMeetingList : this.props.serverData,  
+            userId : this.props.userId
         };
     }
 
@@ -32,11 +33,13 @@ export default class PastMeetings extends Component
             <Link to={"/pastMeetingsPlay/"+ pastMeetingList.code}/>
     }
 
+
     render()
     {
         let pastMeetingToRender = this.state.pastMeetingList? this.state.pastMeetingList.filter(pastMeetingList =>
-            pastMeetingList.type.toLowerCase().includes(this.state.filterString.toLowerCase())): []
+            pastMeetingList.Description.toLowerCase().includes(this.state.filterString.toLowerCase())): []
             console.log(pastMeetingToRender);
+
     
     return(
         <div className="meetingDivP">
@@ -47,18 +50,18 @@ export default class PastMeetings extends Component
         </div>
         <div>
         {pastMeetingToRender.map(pastMeetingToRender =>         
-        <Link to={"/pastMeetingsPlay/" + pastMeetingToRender.code} pastMeeting={pastMeetingToRender}>
+        <Link to={"/pastMeetingsPlay/" + pastMeetingToRender.MeetingID} pastMeeting={pastMeetingToRender}>
         <div className="yay">
         <img src ={meetingIcon} alt="meetingIcon" style={{height:"30px", display: "inline-block", textAlign : "left"}} />
-        <h3 id="code" style={{display: "inline-block"}} >{pastMeetingToRender.code} </ h3>
-        <h3 style={{display: "inline-block"}}>-</h3>
-        <h3 id="date" style={{display: "inline-block"}} >{pastMeetingToRender.date} </ h3>
+        <h3 id="code" style={{display: "inline-block"}} >{pastMeetingToRender.MeetingID} </ h3>
+        <h3 style={{display: "inline-block"}}> - </h3>
+        <h3 id="date" style={{display: "inline-block"}} >{pastMeetingToRender.EndTime.slice(0,10)} </ h3>
         <div>
         <h4 id="place" style={{display: "inline-block"}}>{pastMeetingToRender.place}</h4>  
-        <h4 style={{display: "inline-block"}}>-</h4>
-        <h4 id="time" style={{display: "inline-block"}}>{pastMeetingToRender.time}</h4>
-        <h4 style={{display: "inline-block"}}>-</h4> 
-        <h4 id="type" style={{display: "inline-block"}}>{pastMeetingToRender.type}</h4> 
+        <h4 style={{display: "inline-block"}}> - </h4>
+        <h4 id="time" style={{display: "inline-block"}}>{pastMeetingToRender.EndTime.slice(11,16)}</h4>
+        <h4 style={{display: "inline-block"}}> - </h4> 
+        <h4 id="type" style={{display: "inline-block"}}>{pastMeetingToRender.Description}</h4> 
         </div>        
         </div>
         </Link>)}

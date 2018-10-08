@@ -28,7 +28,7 @@ export default class UpcomingMeetings extends Component
     render()
     {
         let upcomingMeetingToRender = this.state.upcomingMeetingList? this.state.upcomingMeetingList.filter(upcomingMeetingList =>
-            upcomingMeetingList.type.toLowerCase().includes(this.state.filterString.toLowerCase())): []
+            upcomingMeetingList.Description.toLowerCase().includes(this.state.filterString.toLowerCase())): []
     return(
         <div className="meetingDivU">
         <div>
@@ -40,15 +40,15 @@ export default class UpcomingMeetings extends Component
         {upcomingMeetingToRender.map(upcomingMeetingList =>         
         <div className="yay">
         <img src ={meetingIcon} alt="meetingIcon" style={{height:"30px", display: "inline-block", textAlign : "left"}} />
-        <h3 id="code" style={{display: "inline-block"}} >{upcomingMeetingList.code} </ h3>
+        <h3 id="code" style={{display: "inline-block"}} >{upcomingMeetingList.MeetingID} </ h3>
         <h3 style={{display: "inline-block"}}>-</h3>
-        <h3 id="date" style={{display: "inline-block"}} >{upcomingMeetingList.date} </ h3>
+        <h3 id="date" style={{display: "inline-block"}} >{upcomingMeetingList.EndTime.slice(0,10)} </ h3>
         <div>
         <h4 id="place" style={{display: "inline-block"}}>{upcomingMeetingList.place}</h4>  
         <h4 style={{display: "inline-block"}}>-</h4>
-        <h4 id="time" style={{display: "inline-block"}}>{upcomingMeetingList.time}</h4>
+        <h4 id="time" style={{display: "inline-block"}}>{upcomingMeetingList.EndTime.slice(11,16)}</h4>
         <h4 style={{display: "inline-block"}}>-</h4> 
-        <h4 id="type" style={{display: "inline-block"}}>{upcomingMeetingList.type}</h4> 
+        <h4 id="type" style={{display: "inline-block"}}>{upcomingMeetingList.Description}</h4> 
         </div>
         </div>)}
         </div>
