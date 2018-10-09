@@ -128,9 +128,7 @@ export default class Waveform extends React.Component {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
       },
-      body: JSON.stringify({    
-        User: this.state.user,
-        Meeting: this.state.meeting,      
+      body: JSON.stringify({      
         Time : final,
         UserID : this.state.userID,
         MeetingID : this.state.meeting.MeetingID,
