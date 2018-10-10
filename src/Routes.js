@@ -8,6 +8,7 @@ import UpComingMeetings from "./UpcomingMeetings";
 import PastMeetings from "./PastMeetings";
 import PastMeetingsPlay from "./PastMeetingsPlay";
 import Login from "./Login";
+import MeetingMode from "./MeetingMode";
 import audiothing from "./PM1.mp3"
 
 /*let fakeServerData = {
@@ -107,6 +108,7 @@ export default class AppRoutes extends Component{
                 <Route exact path="/" component={() => <MainMenu  userData={this.state.userData}/>}/>
                 <Route exact path="/login"   component = {Login} />
                 <Route exact path="/pastMeetingsPlay/:meetingCode"   component={(props) => <PastMeetingsPlay  user={this.state.userData.UserID} {...props}/>} />
+                <Route exact path="/meetingMode/:meetingCode" component={(props) => <MeetingMode user={this.state.userData.UserID} {...props}/>} />
             </Router>
             </div>:<h1>Loading...</h1>
             }

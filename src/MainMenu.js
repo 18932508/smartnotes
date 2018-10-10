@@ -6,6 +6,7 @@ import MakeMeeting from'./MakeMeeting';
 import NavbarMenu from './Navbar';
 import UpcomingMeetings from './UpcomingMeetings';
 import PastMeetings from './PastMeetings';
+import MeetingModeLoad from './MeetingModeLoad';
 import Popup from "reactjs-popup";
 import axios from 'axios';
 
@@ -60,20 +61,20 @@ export default class MainMenu extends Component{
 render()
 {
     this.sortMeetings();
-    let userData = this.state.userData
+    const{userData} = this.state
     const{tempMeetings, pastMeetingData, upComingMeetingData} = this.state
-    console.log(pastMeetingData);
+    console.log(this.state.userData.UserID);
     return(            
             <div>
             <NavbarMenu />
             <h1>Welcome {userData.UserName}</h1>     
             <div style={{display: 'inline-block'}}>
-                <button className="meetingModeButton">Meeting Mode</button>
+                <MeetingModeLoad />
             </div>
-            <MakeMeeting userID = {this.state.userData.UserId}/>
+            <MakeMeeting userID = {this.state.userData.UserID}/>
             <div className="why">
             <UpcomingMeetings serverData={this.state.upComingMeetingData}/>
-            <PastMeetings userId = {this.state.userData.UserId} serverData={this.state.pastMeetingData}/>
+            <PastMeetings userId = {this.state.userData.UserID} serverData={this.state.pastMeetingData}/>
             </div>
            </div>
     )

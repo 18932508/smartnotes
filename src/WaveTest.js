@@ -132,7 +132,7 @@ export default class Waveform extends React.Component {
         Time : final,
         UserID : this.state.userID,
         MeetingID : this.state.meeting.MeetingID,
-        Description : this.state.value
+        Descriptions : this.state.value
       })
     })
     .then((response) => response.text())

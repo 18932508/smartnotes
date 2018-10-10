@@ -21,7 +21,7 @@ export default class MakeMeeting extends Component{
             ],
             dateCreated: null,
             datePlanned: null,
-            userId: this.props.userID
+            userID: this.props.userID
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -47,7 +47,7 @@ export default class MakeMeeting extends Component{
                 EndTime : this.state.datePlanned,
                 Status : 0,
                 AudioFile : null,
-                CreatedBy : this.state.userId
+                CreatedBy : this.state.userID
         })
         })
         .then((response) => response.text())
@@ -237,6 +237,7 @@ export default class MakeMeeting extends Component{
 
 render()
 {
+    console.log(this.state.userID)
     return(
         <div style={{display: 'inline-block'}}>
         <Popup
