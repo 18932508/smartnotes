@@ -3,7 +3,8 @@ import './App.css';
 import meetingIcon from "./meetingIcon.png";
 
 
-
+/*Upcoming Meetings
+exactly like past Meetings, gets data and lists it, also has filter by description*/
 class Filter extends React.Component{
     render()
     {

@@ -15,7 +15,11 @@ import noteIcon from "./imgs/note.png";
 import confirmIcon from "./imgs/confirm.png";
 
 require('wavesurfer.js');
-
+/*WaveTest
+Biggest part of the app
+Loads the waveform for the audio and notes
+displays notes and allows filtering by description
+Also allows the user to post a note after a meeting is finished, it does the formating for this too */
 class Filter extends React.Component{
   render()
   {
@@ -93,7 +97,6 @@ export default class Waveform extends React.Component {
     this.setState({value: event.target.value});
   }
   handleSubmit(event) {
-    //let Note = Object.assign({}, this.state.newNote);
     let Note = {}
     var time = this.state.pos
     var timeFormat = this.getCurrentTime(time)
@@ -105,14 +108,6 @@ export default class Waveform extends React.Component {
     var datePart = this.state.meeting.StartTime.slice(0,11)
     var final = datePart.concat(seconds2)
 
-    /*newNote.$id = "10"
-    newNote.Description = this.state.value
-    newNote.Meeting = null;
-    newNote.MeetingID = this.state.meeting.MeetingID
-    newNote.Time = final
-    newNote.User = null
-    newNote.UserID = this.state.userID*/
-
     Note.Time = final
     Note.UserID = this.state.userID
     Note.MeetingID = this.state.meeting.MeetingID
@@ -120,7 +115,6 @@ export default class Waveform extends React.Component {
     Note.User= this.state.user,
     Note.Meeting= this.state.meeting
     this.setState({Note});
-    console.log(Note)
 
     fetch('https://smartnote1.azurewebsites.net/api/notes', {
         method: 'POST',
@@ -143,32 +137,19 @@ export default class Waveform extends React.Component {
       console.error(error);
     });
 
-    /*axios.post(`https://smartnote1.azurewebsites.net/api/notes`, { Note })
-    .then(res => {
-      console.log(res);
-      console.log(res.data);
-    })*/
-
     event.preventDefault();
   }
   notesFixTime()
   {
-    console.log("notesFixedTime start")
     for(var i = 0; this.state.notes.length > i; i++)
     {
         let time1 = this.state.notes[i].Time.slice(11,19)
-        console.log(time1)
         time1 = time1.split(":")
         var seconds1 = (+time1[0]) * 60 * 60 + (time1[1]) * 60 + (+time1[2])
-        console.log(seconds1)
         let time2 = this.state.meeting.StartTime.slice(11,19)
-        console.log(time2)
         time2 = time2.split(":")
         var seconds2 = (+time2[0]) * 60 * 60 + (time2[1]) * 60 + (+time2[2])
-        console.log(seconds2)
         let finaltime = seconds1 - seconds2
-        console.log(finaltime)
-        console.log(this.getCurrentTime(finaltime))
         this.state.notes[i].Time = finaltime
     }
   }

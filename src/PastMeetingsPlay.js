@@ -6,6 +6,10 @@ import Notes from './Notes';
 import WaveTest from './WaveTest';
 import axios from 'axios';
 
+/*Past Meeting Play
+Simple plays a meeting the user has loaded into
+loads meeting data and notes and passes this down to WaveTest */
+
 export default class PastMeetingPlay extends Component
 {
     constructor(props)
@@ -36,17 +40,6 @@ export default class PastMeetingPlay extends Component
 
     render()
     {
-        console.log(this.state.notesData)
-        console.log(this.state.meeting)
-        /*     
-        return(
-            <div>
-            <NavbarMenu />
-            <h1>{pastMeeting.code} - {pastMeeting.date}</h1>
-            <WaveTest song={pastMeeting.audio.audiothing} notes={pastMeeting.notes} />
-            </div>
-        )
-        */
         const{meeting, meetingCode, notesData, userId} = this.state; 
         if(!this.state.notesData)
         {

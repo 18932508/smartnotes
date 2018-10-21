@@ -5,7 +5,11 @@ import Popup from "reactjs-popup";
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import DatePicker from 'react-date-picker'
-import axios from 'axios'
+
+/*Make Meeting
+Uses a date picker to select date of meeting
+drop down menu to select time of meeting
+posts to server on submit */
 
 export default class MakeMeeting extends Component{
     constructor(props)
@@ -65,7 +69,6 @@ export default class MakeMeeting extends Component{
     }
     onChange = newDate => this.setState({newDate})  
     _onSelect (option) {
-        console.log('You selected ', option.label)
         this.setState({selectedTime: option.value})
       }
       setPlannedDate(date)
@@ -138,22 +141,14 @@ export default class MakeMeeting extends Component{
           }
         }
         let time = this.state.selectedTime
-        console.log(time)
         time  += ":00.511Z"
         let year = date.slice(11,15)
         let day = date.slice(8,10)
         final = year+ "-" +month+ "-"+ day+ "T" +time
-        console.log(" month = "+ month)
-        console.log(" time = "+ time)
-        console.log(" year = "+ year)
-        console.log(" day = "+ day)
-        console.log(" final = "+ final)
         this.state.datePlanned = final
-        console.log(this.state.datePlanned)
       }
       setCreatedDate(date)
         {
-        console.log(this.state.newDate)
         let final = null
         date = date.toString()
         let month = date.slice(4,7)
@@ -226,18 +221,11 @@ export default class MakeMeeting extends Component{
         let year = date.slice(11,15)
         let day = date.slice(8,10)
         final = year+ "-" +month+ "-"+ day+ "T" +time
-        console.log(" month = "+ month)
-        console.log(" time = "+ time)
-        console.log(" year = "+ year)
-        console.log(" day = "+ day)
-        console.log(" final = "+ final)
         this.state.dateCreated = final
-        console.log(this.state.dateCreated)
         }
 
 render()
 {
-    console.log(this.state.userID)
     return(
         <div style={{display: 'inline-block'}}>
         <Popup

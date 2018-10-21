@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import meetingIcon from "./meetingIcon.png";
 import PastMeetingsPlay from "./PastMeetingsPlay";
-
 import {Link} from "react-router";
+
+/*Past Meetings
+displays all the past meetings in a list for the user to select
+clicking a meeting will load the user into that meeting
+
+Also has a filter component to sort through the meetings by description*/
 
 class Filter extends React.Component{
     render()
@@ -38,7 +43,6 @@ export default class PastMeetings extends Component
     {
         let pastMeetingToRender = this.state.pastMeetingList? this.state.pastMeetingList.filter(pastMeetingList =>
             pastMeetingList.Description.toLowerCase().includes(this.state.filterString.toLowerCase())): []
-            console.log(pastMeetingToRender);
 
     
     return(

@@ -11,6 +11,10 @@ import Popup from "reactjs-popup";
 import axios from 'axios';
 
 
+/*Main Menu
+Main loaded screen for App
+gets users who attended which meetings and sorts them accordingly
+passes data down to each component to be loaded*/
 
 export default class MainMenu extends Component{
     constructor(props)
@@ -63,13 +67,12 @@ render()
     this.sortMeetings();
     const{userData} = this.state
     const{tempMeetings, pastMeetingData, upComingMeetingData} = this.state
-    console.log(this.state.userData.UserID);
     return(            
             <div>
             <NavbarMenu />
             <h1>Welcome {userData.UserName}</h1>     
             <div style={{display: 'inline-block'}}>
-                <MeetingModeLoad />
+                <MeetingModeLoad history={this.props.history} />
             </div>
             <MakeMeeting userID = {this.state.userData.UserID}/>
             <div className="why">
